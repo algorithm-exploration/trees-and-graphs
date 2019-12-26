@@ -1,7 +1,8 @@
-// tests
+#include "balanced-binary-tree.hpp"
+#include "../../test/lest.hpp"
 
 const lest::test tests[] = {
-    CASE("Full Tree") {
+    CASE("Full Tree") {// make_unique is part of c++14, it constructs an object wrapped in a smart/unique pointer which ensures that when the pointer goes out of scope, the object is deleted
         auto root = make_unique<BinaryTreeNode>(5);
         root->insertLeft(8)->insertLeft(1);
         root->insertRight(6)->insertRight(4);
@@ -61,5 +62,6 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "All tests passed!!!\n", EXIT_SUCCESS;
 }
