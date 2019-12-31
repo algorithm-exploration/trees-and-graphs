@@ -1,4 +1,5 @@
-// tests
+#include "../../test/lest.hpp"
+#include "2nd-largest-item-binary-search.hpp"
 
 const lest::test tests[] = {
     CASE("Full tree") {
@@ -52,5 +53,6 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "All tests passed!!!\n", EXIT_SUCCESS;
 }
