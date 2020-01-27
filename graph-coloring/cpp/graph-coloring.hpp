@@ -5,9 +5,6 @@
 #include <unordered_set>
 #include <vector>
 
-// C++11 lest unit testing framework
-#include "lest.hpp"
-
 using namespace std;
 
 class GraphNode
@@ -61,9 +58,31 @@ public:
     }
 };
 
+
+//in c++ function declarations the '&' implies that the function is operating on the actual object passed in, this is similar but not equivalent to passing pointers
+
+//here we just color the graph in O(M+N) time where M is the number of edges
 void colorGraph(const vector<GraphNode*>& graph, const vector<string>& colors)
 {
-    // create a valid coloring for the graph
-    
+    for(auto node: graph) {
+        const auto& neighbors = node->getNeighbors();
 
+        //if you try to find something in a set/etc and it isn't there, you usually are returned (set/etc).end(), then we compare pointers
+        if(neighbors.find(node) != neighbors.end()) 
+            throw invalid_argument("There is a loop from a node to itself preventing a legal coloring of this graph...");
+
+        unordered_set<string> illegalColors;
+        for(auto neighbor: neighbors) {
+            if(neighbor->hasColor()) {
+                illegalColors.insert(neighbor->getColor());
+            }
+        }
+
+        for(auto color: colors) {
+            if(illegalColors.find(color) == illegalColors.end()) {
+                node->setColor(color);
+                break;
+            }
+        }
+    }
 }

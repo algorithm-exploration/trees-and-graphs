@@ -1,4 +1,5 @@
-// tests
+#include "../../test/lest.hpp"
+#include "graph-coloring.hpp"
 
 vector<string> getColors()
 {
@@ -92,7 +93,8 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if (int failures = lest::run(tests, argc, argv)) return failures;
+    else return cout << "All tests passed!!!\n", EXIT_SUCCESS;
 }
 
 bool validateGraphColoring(const vector<GraphNode*>& graph)
