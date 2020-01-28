@@ -1,4 +1,5 @@
-// tests
+#include "mesh-message.hpp"
+#include "../../test/lest.hpp"
 
 unordered_map<string, vector<string>> getNetwork()
 {
@@ -59,5 +60,7 @@ const lest::test tests[] = {
 
 int main(int argc, char** argv)
 {
-    return lest::run(tests, argc, argv);
+    if(int failures = lest::run(tests, argc, argv)) {
+        return failures;
+    } else cout << "All tests passed!!!\n", EXIT_FAILURE;
 }
